@@ -30,7 +30,7 @@ export default function RootLayout({
             {/* <Link href="#" className="text-sm font-medium hover:underline underline-offset-4" prefetch={false}>
             Clients
           </Link> */}
-            <Link href="#" className="text-sm font-medium hover:underline underline-offset-4" prefetch={false}>
+            <Link href="/ContactUs" className="text-sm font-medium hover:underline underline-offset-4" prefetch={false}>
               Contact
             </Link>
           </nav>
