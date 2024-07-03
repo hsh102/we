@@ -333,7 +333,7 @@ export function Shubham() {
               </Card>
               <Card className="p-6 space-y-4 bg-[#f07167] text-[#fdfcdc]">
                 <blockquote className="text-lg font-semibold leading-snug lg:text-xl lg:leading-normal xl:text-2xl">
-                  &ldquo;I've worked with Skyways Film Production for years, and they never fail to deliver top-notch
+                  &ldquo;I&rsquo;ve worked with Skyways Film Production for years, and they never fail to deliver top-notch
                   talent. Highly recommended!&rdquo;
                 </blockquote>
                 <div>
@@ -401,7 +401,7 @@ export function Shubham() {
   )
 }
 
-function CalendarIcon(props) {
+function CalendarIcon(props: React.SVGProps<SVGSVGElement>): JSX.Element {
   return (
     <svg
       {...props}
@@ -424,7 +424,7 @@ function CalendarIcon(props) {
 }
 
 
-function MountainIcon(props) {
+function MountainIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -444,7 +444,7 @@ function MountainIcon(props) {
 }
 
 
-function StarIcon(props) {
+function StarIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -464,7 +464,7 @@ function StarIcon(props) {
 }
 
 
-function ThumbsUpIcon(props) {
+function ThumbsUpIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
