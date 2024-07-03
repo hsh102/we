@@ -32,6 +32,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 
 export function Shubham() {
+  const imageCount = 14;
   return (
     <div className="flex flex-col min-h-[100dvh]">
      
@@ -42,13 +43,13 @@ export function Shubham() {
               <Carousel className="mx-auto aspect-[4/3] overflow-hidden rounded-xl sm:w-full lg:order-last">
                 <CarouselContent>
                   <CarouselItem>
-                    <img src="/h1.jpeg" width="800" height="600" alt="Hero" className="object-cover" />
+                    <img src="/p000.jpg" width="800" height="600" alt="Hero"  />
                   </CarouselItem>
                   <CarouselItem>
-                    <img src="/placeholder.svg" width="800" height="600" alt="Hero" className="object-cover" />
+                    <img src="/p17.jpg" width="800" height="600" alt="Hero" className="object-cover" />
                   </CarouselItem>
                   <CarouselItem>
-                    <img src="/placeholder.svg" width="800" height="600" alt="Hero" className="object-cover" />
+                    <img src="/p16.jpg" width="800" height="600" alt="Hero" className="object-cover" />
                   </CarouselItem>
                 </CarouselContent>
                 <CarouselPrevious />
@@ -193,121 +194,26 @@ export function Shubham() {
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Our Client</h2>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Our Project</h2>
                 <p className="max-w-[700px] text-[#fdfcdc] md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   Browse our diverse portfolio of professional models available for your next project.
                 </p>
               </div>
             </div>
+       
             <div className="mx-auto grid grid-cols-2 gap-4 py-12 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-              <img
-                src="/m1.jpg"
-                width="300"
-                height="300"
-                alt="Model"
-                className="mx-auto aspect-square overflow-hidden rounded-xl object-cover object-center"
-              />
-              <img
-                src="/m2.jpg"
-                width="300"
-                height="300"
-                alt="Model"
-                className="mx-auto aspect-square overflow-hidden rounded-xl object-cover object-center"
-              />
-              <img
-                src="/m3.jpg"
-                width="300"
-                height="300"
-                alt="Model"
-                className="mx-auto aspect-square overflow-hidden rounded-xl object-cover object-center"
-              />
-              <img
-                src="/m4.jpg"
-                width="300"
-                height="300"
-                alt="Model"
-                className="mx-auto aspect-square overflow-hidden rounded-xl object-cover object-center"
-              />
-              <img
-                src="/m5.jpg"
-                width="300"
-                height="300"
-                alt="Model"
-                className="mx-auto aspect-square overflow-hidden rounded-xl object-cover object-center"
-              />
-              <img
-                src="/m6.jpg"
-                width="300"
-                height="300"
-                alt="Model"
-                className="mx-auto aspect-square overflow-hidden rounded-xl object-cover object-center"
-              />
-              <img
-                src="/m7.jpg"
-                width="300"
-                height="300"
-                alt="Model"
-                className="mx-auto aspect-square overflow-hidden rounded-xl object-cover object-center"
-              />
-              <img
-                src="/m8.jpg"
-                width="300"
-                height="300"
-                alt="Model"
-                className="mx-auto aspect-square overflow-hidden rounded-xl object-cover object-center"
-              />
-              <img
-                src="/m9.jpg"
-                width="300"
-                height="300"
-                alt="Model"
-                className="mx-auto aspect-square overflow-hidden rounded-xl object-cover object-center"
-              />
-              <img
-                src="/m10.jpg"
-                width="300"
-                height="300"
-                alt="Model"
-                className="mx-auto aspect-square overflow-hidden rounded-xl object-cover object-center"
-              />
-              <img
-                src="/m11.jpg"
-                width="300"
-                height="300"
-                alt="Model"
-                className="mx-auto aspect-square overflow-hidden rounded-xl object-cover object-center"
-              />
-              <img
-                src="/m12.jpg"
-                width="300"
-                height="300"
-                alt="Model"
-                className="mx-auto aspect-square overflow-hidden rounded-xl object-cover object-center"
-              />
-              <img
-                src="/m13.jpg"
-                width="300"
-                height="300"
-                alt="Model"
-                className="mx-auto aspect-square overflow-hidden rounded-xl object-cover object-center"
-              />
-              <img
-                src="/m14.jpg"
-                width="300"
-                height="300"
-                alt="Model"
-                className="mx-auto aspect-square overflow-hidden rounded-xl object-cover object-center"
-              />
-              <img
-                src="/m15.jpg"
-                width="300"
-                height="300"
-                alt="Model"
-                className="mx-auto aspect-square overflow-hidden rounded-xl object-cover object-center"
-              />
-           
+                {[...Array(14).keys()].map(i => (
+                    <img
+                        key={i+1}
+                        src={`/p${i+1}.jpg`}
+                        width="300"
+                        height="300"
+                        alt="Model"
+                        className="mx-auto aspect-square overflow-hidden rounded-xl object-cover object-center"
+                    />
+                ))}
+               
             </div>
-
           </div>
         </section>
         <section className="w-full py-12 md:py-24 lg:py-32 bg-[#fed9b7] text-[#0081a7]">
@@ -327,8 +233,8 @@ export function Shubham() {
                   professional, reliable, and a joy to work with.&rdquo;
                 </blockquote>
                 <div>
-                  <div className="font-semibold">Jane Doe</div>
-                  <div className="text-sm text-[#fdfcdc]">Marketing Director, Acme Corp</div>
+                  <div className="font-semibold">Aman </div>
+                  <div className="text-sm text-[#fdfcdc]">Marketing Director</div>
                 </div>
               </Card>
               <Card className="p-6 space-y-4 bg-[#f07167] text-[#fdfcdc]">
@@ -337,8 +243,8 @@ export function Shubham() {
                   talent. Highly recommended!&rdquo;
                 </blockquote>
                 <div>
-                  <div className="font-semibold">John Smith</div>
-                  <div className="text-sm text-[#fdfcdc]">Creative Director, Acme Advertising</div>
+                  <div className="font-semibold">Vishal </div>
+                  <div className="text-sm text-[#fdfcdc]">Creative Director </div>
                 </div>
               </Card>
               <Card className="p-6 space-y-4 bg-[#f07167] text-[#fdfcdc]">
@@ -347,8 +253,8 @@ export function Shubham() {
                   and the results were amazing.&rdquo;
                 </blockquote>
                 <div>
-                  <div className="font-semibold">Sarah Lee</div>
-                  <div className="text-sm text-[#fdfcdc]">Art Director, Acme Fashion</div>
+                  <div className="font-semibold">Arav</div>
+                  <div className="text-sm text-[#fdfcdc]">Art Director</div>
                 </div>
               </Card>
             </div>

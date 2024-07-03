@@ -18,7 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <header className="px-4 lg:px-6 h-14 flex items-center bg-[#0081a7] text-[#fdfcdc]">
-          <Link href="#" className="flex items-center justify-center  w-20" prefetch={false}>
+          <Link href="/" className="flex items-center justify-center  w-20" prefetch={false}>
             <img src="./logo.png" alt="" />          </Link>
           <nav className="ml-auto flex gap-4 sm:gap-6">
             <Link href="/Models" className="text-sm font-medium hover:underline underline-offset-4" prefetch={false}>

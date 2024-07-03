@@ -1,9 +1,13 @@
-"use client"
+"use client";
+
 import React, { useState, useRef } from 'react';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ContactUs: React.FC = () => {
   const [selectedRole, setSelectedRole] = useState('model');
   const [imageFiles, setImageFiles] = useState<File[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const nameRef = useRef<HTMLInputElement>(null);
   const addressRef = useRef<HTMLInputElement>(null);
   const mobileNumberRef = useRef<HTMLInputElement>(null);
@@ -23,35 +27,47 @@ const ContactUs: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
-    const formData = new FormData();
-    formData.append('selectedRole', selectedRole);
-    formData.append('name', nameRef.current!.value);
-    formData.append('address', addressRef.current!.value);
-    formData.append('mobileNumber', mobileNumberRef.current!.value);
-    formData.append('email', emailRef.current!.value);
-
-    if (selectedRole === 'advertiser' && businessNameRef.current) {
-      formData.append('businessName', businessNameRef.current.value);
-    } else if (selectedRole === 'model' && ageRef.current) {
-      formData.append('age', ageRef.current.value);
-      for (const file of imageFiles) {
-        formData.append('files', file);
-      }
-    }
+    const formData = {
+      selectedRole,
+      name: nameRef.current!.value,
+      address: addressRef.current!.value,
+      mobileNumber: mobileNumberRef.current!.value,
+      email: emailRef.current!.value,
+      businessName: selectedRole === 'advertiser' ? businessNameRef.current?.value : '',
+      age: selectedRole === 'model' ? ageRef.current?.value : '',
+      files: imageFiles
+    };
 
     try {
-      const response = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        body: formData,
+      const response = await fetch("/api/sendEmail", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
       });
+
       if (response.ok) {
-        console.log('Data saved successfully');
+        toast.success("Form sent successfully");
+        // Clear the form
+        nameRef.current!.value = '';
+        addressRef.current!.value = '';
+        mobileNumberRef.current!.value = '';
+        emailRef.current!.value = '';
+        if (businessNameRef.current) businessNameRef.current.value = '';
+        if (ageRef.current) ageRef.current.value = '';
+        setImageFiles([]);
       } else {
-        console.error('An error occurred while saving the data');
+        console.error("Failed to send email");
+        toast.error("Failed to send email");
       }
     } catch (error) {
-      console.error('An error occurred while sending the request');
+      console.error("Failed to send email:", error);
+      toast.error("Failed to send email");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -61,8 +77,8 @@ const ContactUs: React.FC = () => {
         <div className="bg-white shadow-xl rounded-lg overflow-hidden">
           <div className="p-6">
             <h1 className="text-3xl font-bold text-gray-900 mb-6">Contact Us</h1>
+            <ToastContainer />
             <form onSubmit={handleSubmit} className="space-y-4">
-              <input type="hidden" name="access_key" value="01583292-ed67-4792-8643-3f46b8d4052e" />
               <div className="space-y-2">
                 <label className="inline-flex items-center">
                   <input
@@ -124,55 +140,62 @@ const ContactUs: React.FC = () => {
                   />
                 )}
                 {selectedRole === 'model' && (
-                  <div>
+                  <>
                     <input
-                      type="hidden"
-                      data-fileupload="true"
-                      data-maxsize="2"
-                      data-images-only="true"
-                      name="attachment"
-                      id="attachment"
+                      type="number"
+                      ref={ageRef}
                       required
-                      accept="image/jpeg,image/png"
-                      multiple
-                      onChange={handleImageChange}
-                      className="hidden"
-                    />
-                    <label className="block text-sm font-medium text-gray-700">Attach Image Files</label>
-                    <input
-                      type="file"
-                      data-fileupload="true"
-                      data-maxsize="2"
-                      data-images-only="true"
-                      name="attachment"
-                      id="attachment"
-                      required
-                      accept="image/jpeg,image/png"
-                      multiple
-                      onChange={handleImageChange}
+                      placeholder="Age"
                       className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     />
-                  </div>
-                )}
-                {selectedRole === 'model' && (
-                  <input
-                    type="number"
-                    ref={ageRef}
-                    required
-                    placeholder="Age"
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                  />
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700">Attach Image Files</label>
+                      <input
+                        type="file"
+                        accept="image/jpeg,image/png"
+                        multiple
+                        onChange={handleImageChange}
+                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      />
+                    </div>
+                  </>
                 )}
               </div>
               <button
                 type="submit"
-                className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className={`inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white ${
+                  isSubmitting ? "bg-indigo-400" : "bg-indigo-600 hover:bg-indigo-700"
+                } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition ease-in-out duration-150`}
+                disabled={isSubmitting}
               >
-                Submit
+                {isSubmitting ? "Submitting..." : "Submit"}
               </button>
             </form>
           </div>
         </div>
+      </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <h2 className="text-2xl font-bold text-gray-900 mb-6">About Skyway Film Production</h2>
+        <p className="text-gray-700 mb-4">
+          Skyway Film Production is a premier film production company known for creating high-quality films and
+          commercials. With a team of experienced professionals, we bring stories to life with creativity and
+          innovation.
+        </p>
+        <p className="text-gray-700 mb-4">
+          Our services include pre-production, production, and post-production. We handle everything from scriptwriting,
+          casting, and location scouting to filming, editing, and visual effects. Our commitment to excellence ensures
+          that every project meets the highest standards.
+        </p>
+        <p className="text-gray-700 mb-4">
+          At Skyway Film Production, we are passionate about storytelling. Our portfolio includes award-winning films,
+          engaging commercials, and captivating documentaries. We work closely with our clients to understand their
+          vision and bring it to life on screen.
+        </p>
+        <p className="text-gray-700 mb-4">
+          Whether you are a brand looking to create a compelling advertisement or a filmmaker with a unique story to
+          tell, Skyway Film Production is here to help. Contact us today to discuss your project and see how we can
+          collaborate to create something truly special.
+        </p>
       </div>
     </div>
   );
