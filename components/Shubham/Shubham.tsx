@@ -46,10 +46,10 @@ export function Shubham() {
                     <img src="/p000.jpg" width="800" height="600" alt="Hero"  />
                   </CarouselItem>
                   <CarouselItem>
-                    <img src="/p17.jpg" width="800" height="600" alt="Hero" className="object-cover" />
+                    <img src="/p000.jpg" width="800" height="600" alt="Hero" className="object-cover" />
                   </CarouselItem>
                   <CarouselItem>
-                    <img src="/p16.jpg" width="800" height="600" alt="Hero" className="object-cover" />
+                    <img src="/p000.jpg" width="800" height="600" alt="Hero" className="object-cover" />
                   </CarouselItem>
                 </CarouselContent>
                 <CarouselPrevious />
@@ -202,7 +202,7 @@ export function Shubham() {
             </div>
        
             <div className="mx-auto grid grid-cols-2 gap-4 py-12 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-                {[...Array(14).keys()].map(i => (
+                {[...Array(10).keys()].map(i => (
                     <img
                         key={i+1}
                         src={`/p${i+1}.jpg`}
